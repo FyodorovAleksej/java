@@ -1,10 +1,10 @@
 package com.company;
 
-import com.company.CommonUserPackage.CommonUser;
-import com.company.CommonUserPackage.Encryptor;
-import com.company.CommonUserPackage.Order;
-import com.company.CommonUserPackage.UsersList;
+import com.company.CommonUserPackage.*;
 import junit.framework.TestCase;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Alexey on 21.02.2017.
@@ -79,7 +79,7 @@ public class Test extends TestCase {
     public void testSave2() {
         list.add(new CommonUser("test2login","qrty",Order.USER));
         list.add(new CommonUser("test2login2","qrty",Order.USER));
-        list.add(new CommonUser("nnn","ddddddddddddddddddddddd",Order.USER));
+        list.add(new CommonUser("nnn","45",Order.USER));
         list.save();
         UsersList readList = UsersList.read();
         System.out.println(readList.toString());
@@ -89,5 +89,25 @@ public class Test extends TestCase {
         list.save();
         UsersList readList = UsersList.read();
         System.out.println(readList.toString());
+    }
+    public void testDateControll(){
+        DateControll dateControll = new DateControll(2017,04,03);
+    }
+    public void testSplit(){
+        String s = "1\t2\t3\t4";
+        String[] strings = s.split("\t");
+        for (String i: strings){
+            System.out.println(i);
+        }
+    }
+    public void testDateControll1(){
+        DateControll current = new DateControll();
+        DateControll old = new DateControll(2017,02,03);
+        assertTrue(current.moreThan(old));
+    }
+    public void testDateControll2(){
+        DateControll current = new DateControll();
+        DateControll old = new DateControll(2017,02,04);
+        assertTrue(!current.moreThan(old));
     }
 }

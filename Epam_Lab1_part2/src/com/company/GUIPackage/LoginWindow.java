@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.logging.Logger;
 
 /**
@@ -42,11 +43,11 @@ public class LoginWindow {
             public void actionPerformed(ActionEvent e) {
                 if (loginText.getText().equals("Admin") && passwordText.getText().equals("Admin"))
                 {
-                    ListWindow listWindow = new ListWindow(new CommonUser(loginText.getText(),passwordText.getText(),Order.ADMIN));
+                    ListWindow listWindow = new ListWindow(new CommonUser(loginText.getText(),passwordText.getText(),Order.ADMIN),list);
                     window.dispose();
                 }
                 if (list.checkPassword(loginText.getText(),passwordText.getText())){
-                    ListWindow listWindow = new ListWindow(new CommonUser(loginText.getText(),passwordText.getText(),Order.USER));
+                    ListWindow listWindow = new ListWindow(new CommonUser(loginText.getText(),passwordText.getText(),Order.USER),list);
                     list.save();
                     window.dispose();
                 }
@@ -55,7 +56,7 @@ public class LoginWindow {
         signAsGuest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ListWindow listWindow = new ListWindow(new CommonUser(null,null,Order.GUEST));
+                ListWindow listWindow = new ListWindow(new CommonUser(null,null,Order.GUEST),list);
                 System.out.println("Join as guest\n");
                 window.dispose();
             }

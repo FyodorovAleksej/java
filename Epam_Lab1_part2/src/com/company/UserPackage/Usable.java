@@ -13,4 +13,7 @@ public interface Usable {
      boolean isReady();
      boolean read(String path);
      boolean delete(String path);
+     Long getQouta();
+     void refresh();
+     void setQouta(long new_qouta);
 }

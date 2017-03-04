@@ -1,6 +1,7 @@
 package com.company.GUIPackage;
 
 import com.company.CommonUserPackage.CommonUser;
+import com.company.CommonUserPackage.UsersList;
 import com.company.FileObjectPackage.FileList;
 import com.company.FileObjectPackage.FileObject;
 
@@ -12,6 +13,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Created by Alexey on 24.02.2017.
@@ -23,9 +25,11 @@ public class ListWindow {
     private JButton refreshAllButton = new JButton("refresh all");
     private JList  fileList;
     private CommonUser user;
-    private FileList model;
+    private UsersList list;
+    private FileList model, visible;
     private GridBagConstraints grid = new GridBagConstraints();
-    public ListWindow(CommonUser new_user){
+    public ListWindow(CommonUser new_user, UsersList new_list){
+        this.list = new_list;
         this.user = new_user;
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -84,6 +88,8 @@ public class ListWindow {
             @Override
             public void windowClosing(WindowEvent e) {
                 model.save();
+                list.refresh(user);
+                list.save();
             }
 
             @Override
@@ -107,9 +113,11 @@ public class ListWindow {
             }
         });
         fileList = new JList(model);
-        JScrollBar scrollBar = new JScrollBar(1);
-        fileList.add(scrollBar);
-        fileList.setAutoscrolls(true);
+
+        JScrollPane scrollPane = new JScrollPane(fileList);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+
         window.setSize(500,500);
         window.setLayout(new GridBagLayout());
 
@@ -130,18 +138,18 @@ public class ListWindow {
         window.add(deleteButton,grid);
 
 
-        grid.fill = GridBagConstraints.HORIZONTAL;
+        grid.fill = GridBagConstraints.BOTH;
         grid.gridwidth = 3;
-        grid.weighty = 20;
+        grid.weighty = 2;
         setGrid(0,1,0.5);
-        window.add(fileList,grid);
+        window.add(scrollPane,grid);
 
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.gridwidth = 3;
         grid.weighty = 0;
         setGrid(0,2,0.5);
         window.add(refreshAllButton,grid);
-
+        fileList.setAutoscrolls(true);
 
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

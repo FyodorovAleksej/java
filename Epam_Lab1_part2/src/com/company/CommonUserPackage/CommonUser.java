@@ -3,6 +3,11 @@ package com.company.CommonUserPackage;
 import com.company.FileObjectPackage.FileObject;
 import com.company.UserPackage.*;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
 /**
@@ -12,6 +17,7 @@ public class CommonUser {
     private String login;
     private String password;
     private Usable order;
+    private DateControll calendar = null;
 
     public CommonUser(String new_login, String new_password, Order new_order){
         this.login = new_login;
@@ -53,7 +59,11 @@ public class CommonUser {
     }
 
     public FileObject add(String path){
-        return order.add(path);
+        FileObject fileObject = order.add(path);
+        if (fileObject != null) {
+            calendar = new DateControll();
+        }
+        return fileObject;
     }
 
     public boolean read(String path){
@@ -63,6 +73,46 @@ public class CommonUser {
     public String write() {
         String s = this.login;
         s += "\t" + this.password;
+        if (calendar != null) {
+            s += "\t" + this.calendar.toString();
+        }
+        else{
+            s += "\t" + "";
+        }
+        s += "\t" + order.getQouta().toString();
         return s;
+    }
+
+    public static CommonUser readFromFile(String buffer) {
+        String[] strings = buffer.split("\t");
+        if (strings.length < 3){
+            return null;
+        }
+        Order order;
+        CommonUser user;
+        if (strings[3].equals("")) {
+            order = Order.GUEST;
+        }
+        else {
+            if (Long.valueOf(strings[3]) >= 0) {
+                order = Order.USER;
+            }
+            else{
+                order = Order.ADMIN;
+            }
+        }
+        user = new CommonUser(strings[0],Encryptor.encrypt(strings[1],strings[0]),order);
+        if (order.equals(Order.USER)){
+            if (!strings[2].equals("") && new DateControll().moreThan(DateControll.valueOf(strings[2]))){
+                user.order.refresh();
+            }
+            else{
+                user.order.setQouta(Long.valueOf(strings[3]));
+            }
+        }
+        return user;
+    }
+    public String getLogin(){
+        return login;
     }
 }

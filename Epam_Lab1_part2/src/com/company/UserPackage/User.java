@@ -14,7 +14,8 @@ import java.util.LinkedList;
  */
 
 public class User implements Usable {
-    private long qouta = 10485760;
+    public final long QOUTA = 10485760;
+    private long qouta = QOUTA;
     @Override
     public FileObject add(String path) {
         FileObject file =  new FileObject(path);
@@ -50,5 +51,15 @@ public class User implements Usable {
     @Override
     public boolean delete(String path) {
         return false;
+    }
+
+    public Long getQouta() {
+        return qouta;
+    }
+    public void refresh(){
+        qouta = QOUTA;
+    }
+    public void setQouta(long new_qouta){
+        this.qouta = new_qouta;
     }
 }

@@ -41,4 +41,15 @@ public class Admin implements Usable {
         File file = new File(path);
         return file.delete();
     }
+    public Long getQouta(){
+        return (long)(-1);
+    }
+
+    @Override
+    public void refresh() {
+    }
+
+    @Override
+    public void setQouta(long new_qouta) {
+    }
 }

@@ -40,4 +40,15 @@ public class Guest implements Usable {
     public boolean delete(String path) {
         return false;
     }
+    public Long getQouta() {
+        return null;
+    }
+
+    @Override
+    public void refresh() {
+    }
+
+    @Override
+    public void setQouta(long new_qouta) {
+    }
 }

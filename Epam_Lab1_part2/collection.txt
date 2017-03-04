@@ -9,7 +9,6 @@ C:\emu8086\DEVICES\Robot.exe	69632
 C:\8.txt	0
 C:\Intel\Logs\IntelGFXCoin.log	8932
 C:\emu8086\diasm.dll	98304
-C:\emu8086\FLOPPY_0	1474560
 C:\Intel\Logs\MBI.log	6178
 C:\Qt\5.8\winrt_x64\mkspecs\qmodule.pri	484
 C:\Program Files\Blender Foundation\Blender\avformat-57.dll	2098688
@@ -22,3 +21,30 @@ C:\emu8086\documentation\register.html	927
 C:\emu8086\examples\5_sample.asm	586
 C:\emu8086\Options\LoadFlag.dat	34
 C:\emu8086\Options\hotkeys.dat	1337
+C:\emu8086\DEVICES\Stepper_motor.exe	45056
+C:\driver\Finger Print Driver\WBFDDKSetup_CMN_5011.exe	17477200
+C:\emu8086\unins000.exe	1174979
+C:\emu8086\documentation\img\icon2.ico	894
+C:\Intel\Logs\IntelGFX.log	100230
+C:\Program Files (x86)\Audacity\Nyquist\envelopes.lsp	5468
+C:\Program Files (x86)\Application Verifier\vrfauto.idl	31344
+C:\Intel\Logs\IntelCPHS.log	0
+C:\emu8086\examples\0_sample_vga_graphics.asm	1279
+C:\Windows\Branding\Basebrd\basebrd.dll	1478680
+C:\driver\Finger Print Driver\Lenovo_Edge_Drivers\WBF_CMN_DRV\wbf_vfs_lvcmn.cat	14256
+C:\Users\Alexey\.nbi\registry.xml	39026
+C:\drivers\Lenovo Utility\setup.iss	582
+C:\Program Files (x86)\Application Verifier\vrfauto.h	112394
+C:\emu8086\BIOS_ROM	49147
+C:\emu8086\fasm\LICENSE.TXT	1819
+C:\Program Files (x86)\Common Files\Intel Corporation\PSI\SystemData.xml	243350
+C:\drivers\Intel TXEI Driver\mup.xml	9682
+C:\Windows\diagnostics\scheduled\Maintenance\RS_AdminDiagnosticHistory.ps1	1151
+C:\Users\Alexey\Tracing\WPPMedia\Skype_MediaStackETW-6.0.8978.137-releases_CL2017_R03-x86fre-U.etl	16384
+C:\Program Files (x86)\JetBrains\IntelliJ IDEA Community Edition 2016.3.4\build.txt	15
+C:\Windows\diagnostics\index\AudioPlaybackDiagnostic.xml	2109
+C:\Program Files (x86)\Internet Explorer\hmmapi.dll	50688
+C:\Program Files (x86)\Internet Explorer\iexplore.exe	825536
+C:\Program Files (x86)\Internet Explorer\ieinstal.exe	478720
+C:\Program Files (x86)\Internet Explorer\ielowutil.exe	221696
+C:\Program Files (x86)\Internet Explorer\ie9props.propdesc	2963
