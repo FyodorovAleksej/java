@@ -49,15 +49,20 @@ public class CommonUser {
         out += login;
         out += " Password - ";
         out += Encryptor.decrypt(password,login);
-        out += order.toString();
         return out;
     }
 
-    public boolean add(String path, int size, LinkedList<FileObject> list){
-        return order.add(path,size,list);
+    public FileObject add(String path){
+        return order.add(path);
     }
 
-    public boolean read(String path, LinkedList<FileObject> list){
-        return order.read(path, list);
+    public boolean read(String path){
+        return order.read(path);
+    }
+
+    public String write() {
+        String s = this.login;
+        s += "\t" + this.password;
+        return s;
     }
 }

@@ -24,60 +24,70 @@ public class Test extends TestCase {
     public void testadd1(){
         list.add(new CommonUser("Akela","1998", Order.ADMIN));
         list.add(new CommonUser("alex","1234",Order.ADMIN));
-        assert (list.find("Akela").equals("Login - AkeIa Password - 1998"));
-        assert (list.checkPassword("Akela","1998"));
+        assertEquals (list.checkPassword("Akela","1998"),true);
+
     }
     public void testadd2() {
         list.add(new CommonUser("Akela", "1998",Order.ADMIN));
         list.add(new CommonUser("alex", "1234",Order.ADMIN));
-        assert (list.find("Ak").equals(null));
-        assert (!list.checkPassword("Akela","123"));
+        assertEquals (list.find("Ak"),null);
+        assertEquals (!list.checkPassword("Akela","123"),true);
     }
     public void testadd3(){
         list.add(new CommonUser("Akela","1998",Order.ADMIN));
         list.add(new CommonUser("alex","1234",Order.ADMIN));
-        assert (list.find("1998").equals(null));
-        assert (list.checkPassword("A","8"));
+        assertEquals (list.find("1998"),null);
+        assertEquals (list.checkPassword("A","8"),false);
     }
     public void testadd4(){
         list.add(new CommonUser("Akela","1998",Order.ADMIN));
         list.add(new CommonUser("alex","1234",Order.ADMIN));
         list.add(new CommonUser("Akela","556",Order.ADMIN));
-        assert (list.find("Akela").equals("Login - AkeIa Password - 1998"));
-        assert (!list.checkPassword(null,null));
+        assertEquals (!list.checkPassword(null,null),true);
     }
     public void testadd5(){
-        assert (list.find("Akela").equals(null));
-    }
-    public void testadd6(){
-        list.add(new CommonUser("Akela","1998",Order.ADMIN));
-        list.add(new CommonUser("alex","1234",Order.ADMIN));
-        assert (list.find("Akela").equals("Login - AkeIa Password - 1998"));
-    }
-    public void testadd7() {
-        list.add(new CommonUser("Akela", "1998",Order.ADMIN));
-        list.add(new CommonUser("alex", "1234",Order.ADMIN));
-        assert (list.find("Akela").equals("Login - AkeIa Password - 1998"));
+        assertEquals (list.find("Akela"),null);
     }
 
     public void testencript1(){
         String key = "k";
         String text = "12345678";
-        assert (Encryptor.decrypt(Encryptor.encrypt(text,key),key).equals(text));
+        assertEquals (Encryptor.decrypt(Encryptor.encrypt(text,key),key),text);
     }
     public void testencript2(){
         String key = "key 12";
         String text = "12345678  7854";
-        assert (Encryptor.decrypt(Encryptor.encrypt(text,key),key).equals(text));
+        assertEquals (Encryptor.decrypt(Encryptor.encrypt(text,key),key),text);
     }
     public void testencript3(){
         String key = "k";
         String text = null;
-        assert (Encryptor.decrypt(Encryptor.encrypt(text,key),key) == null);
+        assertEquals (Encryptor.decrypt(Encryptor.encrypt(text,key),key), null);
     }
     public void testencript4(){
         String key = null;
         String text = "12345678";
-        assert (Encryptor.decrypt(Encryptor.encrypt(text,key),key).equals(text));
+        assertEquals (Encryptor.decrypt(Encryptor.encrypt(text,key),key),text);
+    }
+
+    public void testSave1() {
+        list.add(new CommonUser("testLogin","qwerty",Order.USER));
+        list.save();
+        UsersList readList = UsersList.read();
+        System.out.println(readList.toString());
+    }
+    public void testSave2() {
+        list.add(new CommonUser("test2login","qrty",Order.USER));
+        list.add(new CommonUser("test2login2","qrty",Order.USER));
+        list.add(new CommonUser("nnn","ddddddddddddddddddddddd",Order.USER));
+        list.save();
+        UsersList readList = UsersList.read();
+        System.out.println(readList.toString());
+    }
+    public void testSave3() {
+        list.add(new CommonUser("test3login","hhghtgjhftjejtydjgfijff",Order.USER));
+        list.save();
+        UsersList readList = UsersList.read();
+        System.out.println(readList.toString());
     }
 }

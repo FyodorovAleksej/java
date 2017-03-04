@@ -1,0 +1,24 @@
+1.txt	27
+C:\emu8086\emu8086.exe	2244608
+E:\KTANE\Bomb-Defusal-Manual_1_rus_export.pdf	866346
+C:\emu8086\LICENSE.txt	2983
+C:\emu8086\ReadMe.txt	890
+C:\emu8086\examples\1_sample.asm	221
+C:\emu8086\DEVICES\_READ_ME.txt	1960
+C:\emu8086\DEVICES\Robot.exe	69632
+C:\8.txt	0
+C:\Intel\Logs\IntelGFXCoin.log	8932
+C:\emu8086\diasm.dll	98304
+C:\emu8086\FLOPPY_0	1474560
+C:\Intel\Logs\MBI.log	6178
+C:\Qt\5.8\winrt_x64\mkspecs\qmodule.pri	484
+C:\Program Files\Blender Foundation\Blender\avformat-57.dll	2098688
+C:\Program Files\Common Files\System\DirectDB.dll	32256
+C:\emu8086\MicroAsm.dll	9216
+C:\emu8086\default.binf	1522
+C:\emu8086\INT_VECT	1045
+C:\emu8086\DEVICES\VGA_STATE.exe	28672
+C:\emu8086\documentation\register.html	927
+C:\emu8086\examples\5_sample.asm	586
+C:\emu8086\Options\LoadFlag.dat	34
+C:\emu8086\Options\hotkeys.dat	1337

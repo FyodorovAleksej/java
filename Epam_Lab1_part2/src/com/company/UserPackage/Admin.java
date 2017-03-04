@@ -2,6 +2,9 @@ package com.company.UserPackage;
 
 import com.company.FileObjectPackage.FileObject;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -9,18 +12,33 @@ import java.util.LinkedList;
  */
 public class Admin implements Usable {
     @Override
-    public boolean add(String path, int size, LinkedList<FileObject> list) {
-        list.add(new FileObject(path,size));
+    public FileObject add(String path) {
+        return new FileObject(path);
+    }
+
+    @Override
+    public boolean isReady() {
         return true;
     }
 
     @Override
-    public boolean read(String path, LinkedList<FileObject> list) {
-        for (FileObject i : list){
-            if (i.equals(path)){
-                return true;
-            }
+    public boolean read(String path) {
+        Desktop desktop = null;
+        if (Desktop.isDesktopSupported()) {
+            desktop = Desktop.getDesktop();
         }
-        return false;
+        try {
+            desktop.open(new File(path));
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean delete(String path) {
+        File file = new File(path);
+        return file.delete();
     }
 }
