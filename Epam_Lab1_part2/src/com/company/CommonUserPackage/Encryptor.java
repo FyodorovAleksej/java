@@ -2,8 +2,16 @@ package com.company.CommonUserPackage;
 
 /**
  * Created by Alexey on 22.02.2017.
+ * Class for encrypting and decrypting strings by using Vernam's cipher
  */
 public class Encryptor {
+
+    /**
+     * method for encrypt password, by using a login
+     * @param password - encrypted string
+     * @param login - key, that using for encrypt password
+     * @return - the result of encrypt
+     */
     public static String encrypt(String password,String login){
         if (password == null)
             return null;
@@ -22,10 +30,10 @@ public class Encryptor {
     }
 
     /**
-     * decrypt input String by key (xor)
+     * decrypt input String by key
      * @param password - encrypted string
      * @param login  - as a key
-     * @return - encrypted string
+     * @return - decrypted string
      */
     public static String decrypt(String password,String login){
         if (password == null){

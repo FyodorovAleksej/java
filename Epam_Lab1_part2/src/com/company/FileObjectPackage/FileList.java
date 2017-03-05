@@ -7,8 +7,13 @@ import java.io.IOException;
 
 /**
  * Created by Alexey on 03.03.2017.
+ * Class, that describes logic in a list of file objects
  */
 public class FileList extends DefaultListModel<FileObject>{
+    /**
+     * method for saving all file objects from this list in a file "collection.txt" in format:
+     * "FileObject\nFileObject\n...\nFileObject"
+     */
     public void save() {
         try {
             FileWriter writer = new FileWriter("collection.txt", false);
@@ -25,6 +30,11 @@ public class FileList extends DefaultListModel<FileObject>{
             e.printStackTrace();
         }
     }
+
+    /**
+     * method for reading all fileObject from file "collection.txt"
+     * @return - the fileList with all files< saving in a file "collection.txt"
+     */
     public static FileList read(){
         FileList list = new FileList();
         FileReader reader;
@@ -54,9 +64,20 @@ public class FileList extends DefaultListModel<FileObject>{
         }
         return list;
     }
+
+    /**
+     * open file with input index
+     * @param index - the index of actual file in list
+     * @return - true - if system can open this file
+     *          false - if system can't open this file
+     */
     public boolean openCurrent(int index){
         return this.get(index).open();
     }
+
+    /**
+     * method for refreshing the size of all files in a file list
+     */
     public void refreshAll() {
         for (int i = 0; i < this.size(); i++) {
             String path = this.elementAt(i).getPath();
@@ -64,6 +85,11 @@ public class FileList extends DefaultListModel<FileObject>{
         }
     }
 
+    /**
+     * add new element in a file list after element with input index
+     * @param index - the index, after that input a file
+     * @param element - element, that will be adding in a list
+     */
     @Override
     public void add(int index, FileObject element) {
         for (int i = 0; i < this.size(); i++) {

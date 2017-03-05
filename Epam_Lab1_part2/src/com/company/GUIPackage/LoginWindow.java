@@ -16,20 +16,21 @@ import java.util.logging.Logger;
  */
 
 public class LoginWindow {
-    private JButton signUp = new JButton("Sign Up");
-    private JButton signIn = new JButton("Sign In");
     private JButton checkLogin = new JButton("Check login");
-    private JButton signAsGuest = new JButton("Sign as guest");
     private JTextField loginText = new JTextField(20);
     private JPasswordField passwordText = new JPasswordField(20);
-    private JLabel loginTextLabel = new JLabel("Login:");
-    private JLabel passwordTextLabel = new JLabel("Password:");
-    private JLabel infoTextLabel = new JLabel("Info:");
     private UsersList list;
     private GridBagConstraints grid = new GridBagConstraints();
     private JFrame window;
+    //-------------------------------------------------------------------------------
+
+    /**
+     * constructor of window with login
+     * @param title - title of window
+     */
     public LoginWindow(String title) {
         list = UsersList.read();
+        JButton signUp = new JButton("Sign Up");
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -38,6 +39,7 @@ public class LoginWindow {
             }
         });
 
+        JButton signIn = new JButton("Sign In");
         signIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,6 +55,7 @@ public class LoginWindow {
                 }
             }
         });
+        JButton signAsGuest = new JButton("Sign as guest");
         signAsGuest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,6 +83,7 @@ public class LoginWindow {
 
         grid.fill = GridBagConstraints.HORIZONTAL;
         setGrid(0,0,0);
+        JLabel loginTextLabel = new JLabel("Login:");
         window.add(loginTextLabel,grid);
 
         grid.fill = GridBagConstraints.HORIZONTAL;
@@ -92,6 +96,7 @@ public class LoginWindow {
 
         grid.fill = GridBagConstraints.HORIZONTAL;
         setGrid(0,1,0.5);
+        JLabel passwordTextLabel = new JLabel("Password:");
         window.add(passwordTextLabel,grid);
 
         grid.fill = GridBagConstraints.HORIZONTAL;
@@ -114,19 +119,25 @@ public class LoginWindow {
 
         grid.fill = GridBagConstraints.HORIZONTAL;
         setGrid(0,3,0.5);
+        JLabel infoTextLabel = new JLabel("Info:");
         window.add(infoTextLabel,grid);
 
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public void show(){
+    /**
+     * method for show this window
+     */
+    public void show() {
         window.setVisible(true);
     }
 
-    public String toString(){
-        return list.toString();
-    }
-
+    /**
+     * set grid for gridBag layout
+     * @param gridx - GridBagLayout.gridx
+     * @param gridy - GridBagLayout.gridy
+     * @param weightx - GridBagLayout.weightx
+     */
     public void setGrid(int gridx, int gridy, double weightx)
     {
         grid.weightx = weightx;

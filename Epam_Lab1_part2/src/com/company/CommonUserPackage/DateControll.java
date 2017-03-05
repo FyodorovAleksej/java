@@ -5,11 +5,22 @@ import java.util.GregorianCalendar;
 
 /**
  * Created by Alexey on 04.03.2017.
+ * Class of checking date for refresh quota
  */
 public class DateControll extends GregorianCalendar {
+    /**
+     * basic constructor, that get current date of computer
+     */
     public DateControll(){
         super();
     }
+
+    /**
+     * constructor for create calendar for input date
+     * @param year - new year
+     * @param month - new month
+     * @param day - new day
+     */
     public DateControll(int year, int month, int day){
         super(year,month,day);
     }
@@ -18,6 +29,11 @@ public class DateControll extends GregorianCalendar {
         if (strings.length < 2) return null;
         return new DateControll(Integer.valueOf(strings[2]),Integer.valueOf(strings[1]),Integer.valueOf(strings[0]));
     }
+
+    /**
+     * Object method for transform date in String in format DAY:MONTH:YEAR
+     * @return - the result of transform
+     */
     public String toString(){
         String day = "";
         String month = "";
@@ -33,6 +49,13 @@ public class DateControll extends GregorianCalendar {
 
         return (day + ":" + month + ":" + year);
     }
+
+    /**
+     * method that compare this date with input date
+     * @param date - date, with that this date will compare
+     * @return - true - if this date more than input date
+     *          false - if this date less or equals than input date
+     */
     public boolean moreThan(DateControll date){
         if (this.get(YEAR) > date.get(YEAR))
             return true;

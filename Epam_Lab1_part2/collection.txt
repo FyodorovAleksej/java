@@ -40,7 +40,7 @@ C:\emu8086\fasm\LICENSE.TXT	1819
 C:\Program Files (x86)\Common Files\Intel Corporation\PSI\SystemData.xml	243350
 C:\drivers\Intel TXEI Driver\mup.xml	9682
 C:\Windows\diagnostics\scheduled\Maintenance\RS_AdminDiagnosticHistory.ps1	1151
-C:\Users\Alexey\Tracing\WPPMedia\Skype_MediaStackETW-6.0.8978.137-releases_CL2017_R03-x86fre-U.etl	16384
+C:\Users\Alexey\Tracing\WPPMedia\Skype_MediaStackETW-6.0.8978.137-releases_CL2017_R03-x86fre-U.etl	5455872
 C:\Program Files (x86)\JetBrains\IntelliJ IDEA Community Edition 2016.3.4\build.txt	15
 C:\Windows\diagnostics\index\AudioPlaybackDiagnostic.xml	2109
 C:\Program Files (x86)\Internet Explorer\hmmapi.dll	50688
@@ -48,3 +48,20 @@ C:\Program Files (x86)\Internet Explorer\iexplore.exe	825536
 C:\Program Files (x86)\Internet Explorer\ieinstal.exe	478720
 C:\Program Files (x86)\Internet Explorer\ielowutil.exe	221696
 C:\Program Files (x86)\Internet Explorer\ie9props.propdesc	2963
+C:\emu8086\documentation\start.html	1515
+C:\9.txt	0
+C:\Qt\5.8\msvc2013_64\.tag	40
+C:\drivers\Lenovo Utility\setup.exe	4563888
+C:\driver\Finger Print Driver\Lenovo_Edge_Drivers\WBF_CMN_DRV\wbf_vfs_lvcmn.inf	7551
+C:\Qt\Tools\mingw530_32\build-info.txt	43501
+C:\Windows\debug\PASSWD.LOG	0
+C:\drivers\MBI Driver\DIFxAPI.dll	323648
+C:\Qt\network.xml	362
+C:\Program Files (x86)\Audacity\unins000.dat	252653
+C:\Qt\InstallationLog.txt	2001977
+C:\Qt\update.rcc	38714
+C:\Qt\MaintenanceTool.ini	50980
+C:\Windows\addins\FXSEXT.ecf	802
+C:\10.txt	0
+C:\22.txt	0
+C:\qw.txt	0

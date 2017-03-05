@@ -17,20 +17,27 @@ import java.util.LinkedList;
 
 /**
  * Created by Alexey on 24.02.2017.
+ * GUI class, that show list of file and allows some operations
  */
 public class ListWindow {
     private JButton addButton = new JButton("add new file");
-    private JButton openButton = new JButton("open");
-    private JButton deleteButton = new JButton("delete file");
-    private JButton refreshAllButton = new JButton("refresh all");
     private JList  fileList;
     private CommonUser user;
     private UsersList list;
-    private FileList model, visible;
+    private FileList model;
     private GridBagConstraints grid = new GridBagConstraints();
+
+    //----------------------------------------------------------------------------------------------
+
+    /**
+     * Constructor of List window
+     * @param new_user - current user
+     * @param new_list - list of registered users
+     */
     public ListWindow(CommonUser new_user, UsersList new_list){
         this.list = new_list;
         this.user = new_user;
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -41,6 +48,7 @@ public class ListWindow {
                     if (file != null) {
                         addButton.setEnabled(true);
                         model.add(model.size(), file);
+                        list.refresh(user);
                     }
                     else {
                         addButton.setEnabled(false);
@@ -49,6 +57,8 @@ public class ListWindow {
 
             }
         });
+
+        JButton openButton = new JButton("open");
         openButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,6 +68,9 @@ public class ListWindow {
                 }
             }
         });
+
+
+        JButton deleteButton = new JButton("delete file");
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -69,13 +82,18 @@ public class ListWindow {
                 }
             }
         });
+
+
+        JButton refreshAllButton = new JButton("refresh all");
         refreshAllButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.refreshAll();
             }
         });
-        JFrame window = new JFrame();
+
+
+        JFrame window = new JFrame("Catalog");
         model = FileList.read();
         if (model == null) {
             model = new FileList();
@@ -88,7 +106,6 @@ public class ListWindow {
             @Override
             public void windowClosing(WindowEvent e) {
                 model.save();
-                list.refresh(user);
                 list.save();
             }
 
@@ -156,6 +173,12 @@ public class ListWindow {
         window.setVisible(true);
     }
 
+    /**
+     * set grid for gridBag layout
+     * @param gridx - GridBagLayout.gridx
+     * @param gridy - GridBagLayout.gridy
+     * @param weightx - GridBagLayout.weightx
+     */
     public void setGrid(int gridx, int gridy, double weightx)
     {
         grid.weightx = weightx;
