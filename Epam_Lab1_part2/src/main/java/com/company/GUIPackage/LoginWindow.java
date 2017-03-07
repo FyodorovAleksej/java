@@ -3,6 +3,8 @@ package com.company.GUIPackage;
 import com.company.CommonUserPackage.CommonUser;
 import com.company.CommonUserPackage.Order;
 import com.company.CommonUserPackage.UsersList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +12,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * the class of Login Window
  * Created by Alexey on 21.02.2017.
  */
 
 public class LoginWindow {
+    private static final Logger log = LogManager.getLogger(LoginWindow.class);
     private JButton checkLogin = new JButton("Check login");
     private JTextField loginText = new JTextField(20);
+    private JLabel infoTextLabel = new JLabel("info: ");
     private JPasswordField passwordText = new JPasswordField(20);
     private UsersList list;
     private GridBagConstraints grid = new GridBagConstraints();
@@ -32,8 +37,13 @@ public class LoginWindow {
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                list.add(new CommonUser(loginText.getText(),passwordText.getText(),Order.USER));
-                System.out.println(list.toString());
+                if (loginText.getText().matches(".*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*(ru|aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$")) {
+                    list.add(new CommonUser(loginText.getText(), passwordText.getText(), Order.USER));
+                }
+                else{
+                    infoTextLabel.setText("username not correct - not email");
+                }
+
             }
         });
 
@@ -120,7 +130,6 @@ public class LoginWindow {
 
         grid.fill = GridBagConstraints.HORIZONTAL;
         setGrid(0,3,0.5);
-        JLabel infoTextLabel = new JLabel("Info:");
         window.add(infoTextLabel,grid);
 
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

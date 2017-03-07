@@ -1,6 +1,8 @@
 package com.company.UserPackage;
 
 import com.company.FileObjectPackage.FileObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.io.File;
@@ -11,6 +13,7 @@ import java.io.IOException;
  * Class, that describers privileges of GUEST (sign In without registration)
  */
 public class Guest implements Usable {
+    private static final Logger log = LogManager.getLogger(Guest.class);
 
     /**
      * method for get value of quota if this day of this GUEST

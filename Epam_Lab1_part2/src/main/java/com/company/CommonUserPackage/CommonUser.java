@@ -5,12 +5,15 @@ import com.company.UserPackage.Admin;
 import com.company.UserPackage.Guest;
 import com.company.UserPackage.Usable;
 import com.company.UserPackage.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by Alexey on 21.02.2017.
  * Class of common methods of all users
  */
 public class CommonUser {
+    private static final Logger log = LogManager.getLogger(CommonUser.class);
     private String login;
     private String password;
     private Usable order;
@@ -40,6 +43,9 @@ public class CommonUser {
                 break;
             }
         }
+        log.entry();
+        log.info(new_login + " enter in the system");
+        log.exit();
     }
 
     /**
@@ -86,6 +92,7 @@ public class CommonUser {
         if (fileObject != null) {
             calendar = new DateControll();
         }
+        log.info("adding " + path + " in list");
         return fileObject;
     }
 
@@ -96,6 +103,7 @@ public class CommonUser {
      *          false - if current user can't open this file
      */
     public boolean read(String path){
+        log.info("open file " + path);
         return order.read(path);
     }
 
@@ -104,16 +112,16 @@ public class CommonUser {
      * @return - String in format: "LOGIN\tPASSWORD\tCALENDAR\tQUOTA" for write in file
      */
     public String write() {
-        String s = this.login;
-        s += "\t" + this.password;
+        String stringOut = this.login;
+        stringOut += "\t" + this.password;
         if (calendar != null) {
-            s += "\t" + this.calendar.toString();
+            stringOut += "\t" + this.calendar.toString();
         }
         else{
-            s += "\t" + "";
+            stringOut += "\t" + "";
         }
-        s += "\t" + order.getQouta().toString();
-        return s;
+        stringOut += "\t" + order.getQouta().toString();
+        return stringOut;
     }
 
     /**
@@ -124,6 +132,7 @@ public class CommonUser {
     public static CommonUser readFromFile(String buffer) {
         String[] strings = buffer.split("\t");
         if (strings.length < 3){
+            log.error("illegal format of file \"login.txt\"");
             return null;
         }
         Order order;
@@ -143,9 +152,15 @@ public class CommonUser {
         if (order.equals(Order.USER)){
             if (!strings[2].equals("") && new DateControll().moreThan(DateControll.valueOf(strings[2]))){
                 user.order.refresh();
+                log.info("refresh quota for user " + strings[0]);
             }
             else{
-                user.order.setQouta(Long.valueOf(strings[3]));
+                if (!strings[2].equals("")) {
+                    user.order.setQouta(Long.valueOf(strings[3]));
+                }
+                else {
+                    user.order.refresh();
+                }
             }
             user.calendar = DateControll.valueOf(strings[2]);
         }

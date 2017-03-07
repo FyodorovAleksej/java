@@ -1,5 +1,8 @@
 package com.company.CommonUserPackage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,6 +13,7 @@ import java.util.LinkedList;
  * Class that contains users in system
  */
 public class UsersList extends LinkedList<CommonUser>{
+    private static final Logger log = LogManager.getLogger(UsersList.class);
     /**
      * Basic constructor of class - create empty list
      */

@@ -1,6 +1,8 @@
 package com.company.FileObjectPackage;
 
 import com.company.DataBaseController.DataBaseProcessor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -13,6 +15,7 @@ import java.sql.Statement;
  * Class, that describes logic in a list of file objects
  */
 public class FileList extends DefaultListModel<FileObject>{
+    private static final Logger log = LogManager.getLogger(FileList.class);
     /**
      * method for saving all file objects from this list in a sql table "filePathSchem.fileTable" in format:
      */
@@ -81,6 +84,30 @@ public class FileList extends DefaultListModel<FileObject>{
             String path = this.elementAt(i).getPath();
             this.set(i,new FileObject(path));
         }
+    }
+
+    public static FileList find(String findString){
+        DataBaseProcessor dataBaseProcessor = new DataBaseProcessor();
+        dataBaseProcessor.openConnection();
+        Connection connection;
+        try {
+            connection = dataBaseProcessor.getConnection();
+            Statement statement = connection.createStatement();
+            String s = "select FilePath from filepathschem.filetable where FilePath like " + "'%" + findString + "'";
+            ResultSet set = statement.executeQuery("select FilePath from filepathschem.filetable where FilePath like " + "'%" + findString + "'");
+            FileList list = new FileList();
+            while (set.next()) {
+                list.addElement(new FileObject(set.getString("FilePath")));
+            }
+            statement.close();
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            dataBaseProcessor.closeConnection();
+        }
+        return null;
     }
 
     /**

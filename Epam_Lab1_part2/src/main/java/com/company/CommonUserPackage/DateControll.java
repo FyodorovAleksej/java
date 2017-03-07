@@ -1,5 +1,8 @@
 package com.company.CommonUserPackage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -8,11 +11,13 @@ import java.util.GregorianCalendar;
  * Class of checking date for refresh quota
  */
 public class DateControll extends GregorianCalendar {
+    private static final Logger log = LogManager.getLogger(DateControll.class);
     /**
      * basic constructor, that get current date of computer
      */
     public DateControll(){
         super();
+        log.info("get current date");
     }
 
     /**
@@ -24,6 +29,12 @@ public class DateControll extends GregorianCalendar {
     public DateControll(int year, int month, int day){
         super(year,month,day);
     }
+
+    /**
+     * transform String into object of this class
+     * @param s - string for transform
+     * @return - the result object
+     */
     public static DateControll valueOf(String s){
         String[] strings = s.split(":");
         if (strings.length < 2) return null;

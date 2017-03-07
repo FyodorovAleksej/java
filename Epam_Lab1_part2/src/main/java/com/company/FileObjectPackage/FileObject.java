@@ -1,5 +1,8 @@
 package com.company.FileObjectPackage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +12,7 @@ import java.io.IOException;
  * Class, that describes file information
  */
 public class FileObject extends Component {
+    private static final Logger log = LogManager.getLogger(FileObject.class);
 
     private String path;
     private long size;

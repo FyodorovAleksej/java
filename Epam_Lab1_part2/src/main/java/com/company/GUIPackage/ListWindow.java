@@ -4,6 +4,8 @@ import com.company.CommonUserPackage.CommonUser;
 import com.company.CommonUserPackage.UsersList;
 import com.company.FileObjectPackage.FileList;
 import com.company.FileObjectPackage.FileObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +17,7 @@ import java.io.File;
  * GUI class, that show list of file and allows some operations
  */
 public class ListWindow {
+    private static final Logger log = LogManager.getLogger(ListWindow.class);
     private JButton addButton = new JButton("add new file");
     private JList  fileList;
     private CommonUser user;
@@ -33,7 +36,7 @@ public class ListWindow {
     public ListWindow(CommonUser new_user, UsersList new_list){
         this.list = new_list;
         this.user = new_user;
-
+        final JTextField findField = new JTextField(100);
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,6 +48,7 @@ public class ListWindow {
                         addButton.setEnabled(true);
                         model.add(model.size(), file);
                         list.refresh(user);
+                        list.save();
                     }
                     else {
                         addButton.setEnabled(false);
@@ -79,6 +83,14 @@ public class ListWindow {
             }
         });
 
+        JButton findButton = new JButton("Find");
+        findButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model = FileList.find(findField.getText());
+                fileList.repaint();
+            }
+        });
 
         JButton refreshAllButton = new JButton("refresh all");
         refreshAllButton.addActionListener(new ActionListener() {
@@ -150,17 +162,26 @@ public class ListWindow {
         setGrid(2,0,0.5);
         window.add(deleteButton,grid);
 
+        grid.fill = GridBagConstraints.HORIZONTAL;
+        grid.gridwidth = 2;
+        setGrid(0,1,0.5);
+        window.add(findField,grid);
+
+        grid.fill = GridBagConstraints.HORIZONTAL;
+        setGrid(2,1,0.5);
+        window.add(findButton,grid);
+
 
         grid.fill = GridBagConstraints.BOTH;
         grid.gridwidth = 3;
         grid.weighty = 2;
-        setGrid(0,1,0.5);
+        setGrid(0,2,0.5);
         window.add(scrollPane,grid);
 
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.gridwidth = 3;
         grid.weighty = 0;
-        setGrid(0,2,0.5);
+        setGrid(0,3,0.5);
         window.add(refreshAllButton,grid);
         fileList.setAutoscrolls(true);
 
