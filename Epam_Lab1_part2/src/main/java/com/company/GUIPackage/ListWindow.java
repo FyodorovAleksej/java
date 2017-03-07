@@ -4,6 +4,7 @@ import com.company.CommonUserPackage.CommonUser;
 import com.company.CommonUserPackage.UsersList;
 import com.company.FileObjectPackage.FileList;
 import com.company.FileObjectPackage.FileObject;
+import com.company.Main;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -49,6 +50,8 @@ public class ListWindow {
                         model.add(model.size(), file);
                         list.refresh(user);
                         list.save();
+                        model.save();
+                        list.sendingAll(file.getPath());
                     }
                     else {
                         addButton.setEnabled(false);
@@ -82,12 +85,16 @@ public class ListWindow {
                 }
             }
         });
-
-        JButton findButton = new JButton("Find");
+        final JButton findButton = new JButton("Find");
         findButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model = FileList.find(findField.getText());
+                if (!findField.getText().equals("")) {
+                    model.find(findField.getText());
+                }
+                else{
+                    model.readDB();
+                }
                 fileList.repaint();
             }
         });
@@ -113,6 +120,8 @@ public class ListWindow {
 
             @Override
             public void windowClosing(WindowEvent e) {
+                findField.setText("");
+                findButton.getActionListeners()[0].actionPerformed(new ActionEvent(findButton,34,"3"));
                 model.save();
                 list.save();
             }
@@ -188,6 +197,9 @@ public class ListWindow {
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    /**
+     * start show this window
+     */
     public void show(){
         window.setVisible(true);
     }

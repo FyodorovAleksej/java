@@ -66,6 +66,26 @@ public class FileList extends DefaultListModel<FileObject>{
         return null;
     }
 
+    public void readDB() {
+        DataBaseProcessor dataBaseProcessor = new DataBaseProcessor();
+        dataBaseProcessor.openConnection();
+        Connection connection;
+        try {
+            connection = dataBaseProcessor.getConnection();
+            Statement statement = connection.createStatement();
+            this.removeAllElements();
+            ResultSet set = statement.executeQuery("select FilePath from filepathschem.filetable");
+            while (set.next()) {
+                this.addElement(new FileObject(set.getString("FilePath")));
+            }
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            dataBaseProcessor.closeConnection();
+        }
+    }
     /**
      * open file with input index
      * @param index - the index of actual file in list
@@ -86,29 +106,42 @@ public class FileList extends DefaultListModel<FileObject>{
         }
     }
 
-    public static FileList find(String findString){
+    /**
+     * find file with this expression from sql
+     * @param findString - the expression for find in database
+     */
+    public void find(String findString) {
+        if (findString.equals("")) {
+            for (int i = 0; i < this.size(); i++) {
+                this.elementAt(i).setVisible(true);
+            }
+            return;
+        }
+        for (int i = 0; i < this.size(); i++) {
+            this.elementAt(i).setVisible(false);
+        }
         DataBaseProcessor dataBaseProcessor = new DataBaseProcessor();
         dataBaseProcessor.openConnection();
         Connection connection;
         try {
             connection = dataBaseProcessor.getConnection();
             Statement statement = connection.createStatement();
-            String s = "select FilePath from filepathschem.filetable where FilePath like " + "'%" + findString + "'";
-            ResultSet set = statement.executeQuery("select FilePath from filepathschem.filetable where FilePath like " + "'%" + findString + "'");
+            String s = "select FilePath from filepathschem.filetable where FilePath like " + "'%" + findString + "%'";
+            ResultSet set = statement.executeQuery("select FilePath from filepathschem.filetable where FilePath like " + "'%" + findString + "%'");
+            this.removeAllElements();
             FileList list = new FileList();
             while (set.next()) {
-                list.addElement(new FileObject(set.getString("FilePath")));
+                this.addElement(new FileObject(set.getString("FilePath")));
             }
             statement.close();
-            return list;
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             dataBaseProcessor.closeConnection();
         }
-        return null;
+        return;
     }
+
 
     /**
      * add new element in a file list after element with input index

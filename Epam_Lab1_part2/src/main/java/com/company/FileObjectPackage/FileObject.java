@@ -16,6 +16,7 @@ public class FileObject extends Component {
 
     private String path;
     private long size;
+    boolean isShow = true;
     //--------------------------------------------------------------
 
     /**
@@ -50,7 +51,12 @@ public class FileObject extends Component {
      */
     @Override
     public String toString(){
-        return "Path - " + path + " Size - " + Long.toString(size);
+        if (this.isShow) {
+            return "Path - " + path + " Size - " + Long.toString(size);
+        }
+        else{
+            return null;
+        }
     }
 
     /**
@@ -93,4 +99,11 @@ public class FileObject extends Component {
         return buffer.toString();
     }
 
+    public void setVisible(boolean visible){
+        this.isShow = visible;
+    }
+
+    public boolean getVisible(){
+        return this.isVisible();
+    }
 }

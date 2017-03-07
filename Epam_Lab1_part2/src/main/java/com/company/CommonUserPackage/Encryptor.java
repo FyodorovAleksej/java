@@ -23,7 +23,7 @@ public class Encryptor {
                 return password;
             }
             byte[] txt = password.getBytes();
-            byte[] key = login.getBytes();
+            byte[] key = login.toUpperCase().getBytes();
             byte[] res = new byte[password.length()];
             for (int i = 0; i < txt.length; i++) {
                 res[i] = (byte) ((txt[i] ^ key[i % key.length]));
@@ -48,7 +48,7 @@ public class Encryptor {
             }
             byte[] text = password.getBytes();
             byte[] res = new byte[password.length()];
-            byte[] key = login.getBytes();
+            byte[] key = login.toUpperCase().getBytes();
 
             for (int i = 0; i < password.length(); i++) {
                 res[i] = (byte) ((text[i] ^ key[i % key.length]));

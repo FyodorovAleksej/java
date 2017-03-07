@@ -4,11 +4,12 @@ import com.company.CommonUserPackage.*;
 import com.company.DataBaseController.DataBaseProcessor;
 import com.company.FileObjectPackage.FileObject;
 import junit.framework.TestCase;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import static java.lang.Integer.toUnsignedLong;
 
@@ -113,7 +114,7 @@ public class Test extends TestCase {
     }
     public void testDateControll2(){
         DateControll current = new DateControll();
-        DateControll old = new DateControll(2017,02,04);
+        DateControll old = new DateControll(2017,03,04);
         assertTrue(!current.moreThan(old));
     }
 
@@ -140,5 +141,20 @@ public class Test extends TestCase {
                 dataBaseProcessor.closeConnection();
             }
         }
+    }
+    public void testLog(){
+        Logger log = LogManager.getLogger("23");
+        log.info("info");
+        log.debug("debug");
+        log.warn("warn");
+        log.error("error");
+        log.fatal("fatal");
+        log.log(Level.ERROR,"log error");
+        log.log(Level.INFO,"log info");
+        log.log(Level.DEBUG,"log debug");
+        log.log(Level.WARN,"log warn");
+        log.log(Level.FATAL,"log fatal");
+        log.log(Level.OFF,"log OFF");
+        log.trace("trace");
     }
 }

@@ -41,7 +41,10 @@ public class LoginWindow {
                     list.add(new CommonUser(loginText.getText(), passwordText.getText(), Order.USER));
                 }
                 else{
-                    infoTextLabel.setText("username not correct - not email");
+                    infoTextLabel.setText("Username not correct - not email. ");
+                }
+                if (passwordText.getText().equals("")){
+                    infoTextLabel.setText(infoTextLabel.getText() + "Input password");
                 }
 
             }
@@ -51,7 +54,7 @@ public class LoginWindow {
         signIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (loginText.getText().equals("Admin") && passwordText.getText().equals("Admin"))
+                if (loginText.getText().equals("Fyodorov.aleksej@gmail.com") && passwordText.getText().equals("Akela1998"))
                 {
                     ListWindow listWindow = new ListWindow(new CommonUser(loginText.getText(),passwordText.getText(),Order.ADMIN),list);
                     listWindow.show();

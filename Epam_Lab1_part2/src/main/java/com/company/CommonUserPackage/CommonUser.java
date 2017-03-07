@@ -92,7 +92,9 @@ public class CommonUser {
         if (fileObject != null) {
             calendar = new DateControll();
         }
+        log.entry();
         log.info("adding " + path + " in list");
+        log.exit();
         return fileObject;
     }
 
