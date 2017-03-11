@@ -17,15 +17,17 @@ import java.awt.event.ActionListener;
  */
 
 public class LoginWindow {
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(LoginWindow.class);
-    private JButton checkLogin = new JButton("Check login");
+    private JButton checkLogin;
     private JTextField loginText = new JTextField(20);
     private JLabel infoTextLabel = new JLabel("info: ");
     private JPasswordField passwordText = new JPasswordField(20);
     private UsersList list;
     private GridBagConstraints grid = new GridBagConstraints();
     private JFrame window;
-    //-------------------------------------------------------------------------------
+
+    //-----------------------Constructors--------------------------------------
 
     /**
      * constructor of window with login
@@ -33,20 +35,12 @@ public class LoginWindow {
      */
     public LoginWindow(String title) {
         list = UsersList.read();
+
         JButton signUp = new JButton("Sign Up");
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (loginText.getText().matches(".*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*(ru|aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$")) {
-                    list.add(new CommonUser(loginText.getText(), passwordText.getText(), Order.USER));
-                }
-                else{
-                    infoTextLabel.setText("Username not correct - not email. ");
-                }
-                if (passwordText.getText().equals("")){
-                    infoTextLabel.setText(infoTextLabel.getText() + "Input password");
-                }
-
+                signUpAction();
             }
         });
 
@@ -54,41 +48,26 @@ public class LoginWindow {
         signIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (loginText.getText().equals("Fyodorov.aleksej@gmail.com") && passwordText.getText().equals("Akela1998"))
-                {
-                    ListWindow listWindow = new ListWindow(new CommonUser(loginText.getText(),passwordText.getText(),Order.ADMIN),list);
-                    listWindow.show();
-                    window.dispose();
-                }
-                if (list.checkPassword(loginText.getText(),passwordText.getText())){
-                    ListWindow listWindow = new ListWindow(new CommonUser(loginText.getText(),passwordText.getText(),Order.USER),list);
-                    listWindow.show();
-                    list.save();
-                    window.dispose();
-                }
+                signInAction();
             }
         });
+
         JButton signAsGuest = new JButton("Sign as guest");
         signAsGuest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ListWindow listWindow = new ListWindow(new CommonUser(null,null,Order.GUEST),list);
-                listWindow.show();
-                System.out.println("Join as guest\n");
-                window.dispose();
+                asGuestAction();
             }
         });
+
+        checkLogin = new JButton("Check login");
         checkLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (list.find(loginText.getText()) == null) {
-                    checkLogin.setBackground(new Color(40,255,255));
-                }
-                else {
-                    checkLogin.setBackground(new Color(255,40,40));
-                }
+                checkLoginAction();
             }
         });
+
         window = new JFrame(title);
         window.setSize(new Dimension(450,150));
         window.setMinimumSize(new Dimension(450,150));
@@ -138,6 +117,8 @@ public class LoginWindow {
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
+    //-----------------------Methods-------------------------------------------
+
     /**
      * method for show this window
      */
@@ -151,11 +132,61 @@ public class LoginWindow {
      * @param gridy - GridBagLayout.gridy
      * @param weightx - GridBagLayout.weightx
      */
-    public void setGrid(int gridx, int gridy, double weightx)
+    private void setGrid(int gridx, int gridy, double weightx)
     {
         grid.weightx = weightx;
         grid.gridx = gridx;
         grid.gridy = gridy;
     }
-}
 
+    //-----------------------Actions-------------------------------------------
+
+    /**
+     * Perform when button "SignUp" was pressed
+     */
+    private void signUpAction() {
+        if (loginText.getText().matches(".*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*(ru|aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$")) {
+            list.add(new CommonUser(loginText.getText(), passwordText.getText(), Order.USER));
+        } else {
+            infoTextLabel.setText("Username not correct - not email. ");
+        }
+        if (passwordText.getText().equals("")) {
+            infoTextLabel.setText(infoTextLabel.getText() + "Input password");
+        }
+    }
+    /**
+     * Perform when button "SignIn" was pressed
+     */
+    private void signInAction() {
+        if (loginText.getText().equals("Fyodorov.aleksej@gmail.com") && passwordText.getText().equals("Akela1998")) {
+            ListWindow listWindow = new ListWindow(new CommonUser(loginText.getText(), passwordText.getText(), Order.ADMIN), list);
+            listWindow.show();
+            window.dispose();
+        }
+        if (list.checkPassword(loginText.getText(), passwordText.getText())) {
+            ListWindow listWindow = new ListWindow(new CommonUser(loginText.getText(), passwordText.getText(), Order.USER), list);
+            listWindow.show();
+            list.save();
+            window.dispose();
+        }
+    }
+    /**
+     * Perform when button "Sign as a guest" was pressed
+     */
+    private void asGuestAction() {
+        ListWindow listWindow = new ListWindow(new CommonUser(null, null, Order.GUEST), list);
+        listWindow.show();
+        System.out.println("Join as guest\n");
+        window.dispose();
+    }
+    /**
+     * Perform when button "Check Login" was pressed
+     */
+    private void checkLoginAction() {
+        if (list.find(loginText.getText()) == null) {
+            checkLogin.setBackground(new Color(40, 255, 255));
+        } else {
+            checkLogin.setBackground(new Color(255, 40, 40));
+        }
+    }
+}

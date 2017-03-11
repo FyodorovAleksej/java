@@ -9,11 +9,12 @@ import java.util.Properties;
  * class for sending mails by using SSL protocol
  */
 public class SenderSSL {
-
+    //-----------------------Objects-------------------------------------------
     private String username;
     private String password;
     private Properties props;
-    //----------------------------------------------
+
+    //-----------------------Constructors--------------------------------------
 
     /**
      * Set properties for getting connection and setting
@@ -31,6 +32,8 @@ public class SenderSSL {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
     }
+
+    //-----------------------Methods-------------------------------------------
 
     /**
      * method for sending mail with input subject

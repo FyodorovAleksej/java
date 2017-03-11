@@ -8,7 +8,11 @@ import org.apache.logging.log4j.Logger;
  * Class for encrypting and decrypting strings by using Vernam's cipher
  */
 public class Encryptor {
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(Encryptor.class);
+
+    //-----------------------Methods-------------------------------------------
+
     /**
      * method for encrypt password, by using a login
      * @param password - encrypted string

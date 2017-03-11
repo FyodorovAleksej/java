@@ -13,12 +13,14 @@ import org.apache.logging.log4j.Logger;
  * Class of common methods of all users
  */
 public class CommonUser {
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(CommonUser.class);
     private String login;
     private String password;
     private Usable order;
     private DateControll calendar = null;
-    //-----------------------------------------------------------------------------
+
+    //-----------------------Constructors--------------------------------------
 
     /**
      * Create new user with input login, password, privileges: ADMIN, USER, GUEST
@@ -47,6 +49,18 @@ public class CommonUser {
         log.info(new_login + " enter in the system");
         log.exit();
     }
+
+    //-----------------------Get/Set-------------------------------------------
+
+    /**
+     * get value of login of current user
+     * @return - the value of login
+     */
+    public String getLogin(){
+        return login;
+    }
+
+    //-----------------------Methods-------------------------------------------
 
     /**
      * Method for check on the respective login of user and input login
@@ -96,17 +110,6 @@ public class CommonUser {
         log.info("adding " + path + " in list");
         log.exit();
         return fileObject;
-    }
-
-    /**
-     * method of open the file with input pathname by current user
-     * @param path - pathname of opening file
-     * @return - true - if current user can open this file
-     *          false - if current user can't open this file
-     */
-    public boolean read(String path){
-        log.info("open file " + path);
-        return order.read(path);
     }
 
     /**
@@ -167,13 +170,5 @@ public class CommonUser {
             user.calendar = DateControll.valueOf(strings[2]);
         }
         return user;
-    }
-
-    /**
-     * get value of login of current user
-     * @return - the value of login
-     */
-    public String getLogin(){
-        return login;
     }
 }

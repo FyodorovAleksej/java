@@ -13,7 +13,10 @@ import java.io.IOException;
  * Class, that describers privileges of GUEST (sign In without registration)
  */
 public class Guest implements Usable {
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(Guest.class);
+
+    //-----------------------Get/Set-------------------------------------------
 
     /**
      * method for get value of quota if this day of this GUEST
@@ -31,8 +34,7 @@ public class Guest implements Usable {
     public void setQouta(long new_qouta) {
     }
 
-    //-------------------------------------------------------------------------
-
+    //-----------------------Methods-------------------------------------------
 
     /**
      * method for adding file with pathname into catalog
@@ -59,6 +61,7 @@ public class Guest implements Usable {
         }
         try {
             desktop.open(new File(path));
+            log.info("open performed");
         } catch (IOException ioe){
             ioe.printStackTrace();
             return false;

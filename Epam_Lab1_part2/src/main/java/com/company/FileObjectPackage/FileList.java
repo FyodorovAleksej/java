@@ -15,7 +15,11 @@ import java.sql.Statement;
  * Class, that describes logic in a list of file objects
  */
 public class FileList extends DefaultListModel<FileObject>{
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(FileList.class);
+
+    //-----------------------Methods-------------------------------------------
+
     /**
      * method for saving all file objects from this list in a sql table "filePathSchem.fileTable" in format:
      */
@@ -40,32 +44,8 @@ public class FileList extends DefaultListModel<FileObject>{
     }
 
     /**
-     * method for reading all fileObject from sql table "filePathSchem.fileTable"
-     * @return - the fileList with all files saving in a sql table "filePathSchem.fileTable"
+     * method for reading all fileObject from sql table "filePathSchem.fileTable" in current object
      */
-    public static FileList read(){
-        DataBaseProcessor dataBaseProcessor = new DataBaseProcessor();
-        dataBaseProcessor.openConnection();
-        Connection connection;
-        try {
-            connection = dataBaseProcessor.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet set = statement.executeQuery("select FilePath from filepathschem.filetable");
-            FileList list = new FileList();
-            while (set.next()) {
-                list.addElement(new FileObject(set.getString("FilePath")));
-            }
-            statement.close();
-            return list;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        finally {
-            dataBaseProcessor.closeConnection();
-        }
-        return null;
-    }
-
     public void readDB() {
         DataBaseProcessor dataBaseProcessor = new DataBaseProcessor();
         dataBaseProcessor.openConnection();

@@ -14,15 +14,13 @@ import java.io.IOException;
  */
 
 public class User implements Usable {
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(User.class);
-    //-------------------------------------------------------------------------
-    /**
-     * QOUTA - 10 Mb for adding files per day
-     */
-    private final long QOUTA = 10485760;
+    private final long QOUTA = 10485760;//10 Mb
     private long qouta = QOUTA;
 
-    //-------------------------------------------------------------------------
+    //-----------------------Get/Set-------------------------------------------
+
     /**
      * method for get value of quota if this day of this USER
      * @return - the value of quota for this USER
@@ -37,9 +35,10 @@ public class User implements Usable {
      */
     public void setQouta(long new_qouta){
         this.qouta = new_qouta;
+        log.info("set quota - " + Long.toString(new_qouta));
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------Methods-------------------------------------------
 
     /**
      * method for adding file with pathname in catalog
@@ -52,6 +51,7 @@ public class User implements Usable {
         FileObject file =  new FileObject(path);
         if (qouta >= file.getFileSize()){
             qouta -= file.getFileSize();
+            log.info("add performed");
             return new FileObject(path);
         }
         else {
@@ -73,6 +73,7 @@ public class User implements Usable {
         }
         try {
             desktop.open(new File(path));
+            log.info("open performed");
         } catch (IOException ioe){
             ioe.printStackTrace();
             return false;
@@ -91,12 +92,12 @@ public class User implements Usable {
         return false;
     }
 
-
     /**
      * method for refresh the value of quota at end of the day
      */
     public void refresh(){
         qouta = QOUTA;
+        log.info("quota was refresh");
     }
 
 }

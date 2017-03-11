@@ -14,15 +14,12 @@ import java.util.LinkedList;
  * Class that contains users in system
  */
 public class UsersList extends LinkedList<CommonUser>{
-    private String subjectOfSending = "Some new file was adding in Catalogizator";
-    private String messageTemplate = " - was adding in the Catlogizator";
+    //-----------------------Objects-------------------------------------------
+    private static final String subjectOfSending = "Some new file was adding in Catalogizator";
+    private static final String messageTemplate = " - was adding in the Catlogizator";
     private static final Logger log = LogManager.getLogger(UsersList.class);
-    /**
-     * Basic constructor of class - create empty list
-     */
-    public UsersList(){
-       super();
-    }
+
+    //-----------------------Methods-------------------------------------------
 
     /**
      * adding new user in list
@@ -47,7 +44,6 @@ public class UsersList extends LinkedList<CommonUser>{
             }
         return null;
     }
-
 
     /**
      * method for checking password for this login
@@ -141,6 +137,10 @@ public class UsersList extends LinkedList<CommonUser>{
         }
     }
 
+    /**
+     * method for sending messages to all registered users
+     * @param message - message, that will sending
+     */
     public void sendingAll(String message){
         for (int i = 0; i < this.size(); i++) {
             SenderCommon.send(this.subjectOfSending,message + this.messageTemplate,this.get(i).getLogin());

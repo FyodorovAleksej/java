@@ -12,12 +12,15 @@ import javax.mail.internet.MimeMessage;
  * class for sending mails by using TSL protocol
  */
 public class SenderTSL {
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(SenderTSL.class);
 
     private String username;
     private String password;
     private Properties props;
-    //------------------------------------------------
+
+    //-----------------------Constructors--------------------------------------
+
     /**
      * Set properties for getting connection and setting
      * @param username - mail of admin
@@ -33,6 +36,8 @@ public class SenderTSL {
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
     }
+
+    //-----------------------Methods-------------------------------------------
 
     /**
      * method for sending mail with input subject

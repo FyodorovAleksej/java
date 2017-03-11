@@ -4,7 +4,6 @@ import com.company.CommonUserPackage.CommonUser;
 import com.company.CommonUserPackage.UsersList;
 import com.company.FileObjectPackage.FileList;
 import com.company.FileObjectPackage.FileObject;
-import com.company.Main;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,16 +17,19 @@ import java.io.File;
  * GUI class, that show list of file and allows some operations
  */
 public class ListWindow {
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(ListWindow.class);
     private JButton addButton = new JButton("add new file");
     private JList  fileList;
+    private JTextField findField = new JTextField(100);
+    private JButton findButton =  new JButton("Find");
     private CommonUser user;
     private UsersList list;
     private FileList model;
     private JFrame window;
     private GridBagConstraints grid = new GridBagConstraints();
 
-    //----------------------------------------------------------------------------------------------
+    //-----------------------Constructors--------------------------------------
 
     /**
      * Constructor of List window
@@ -37,27 +39,11 @@ public class ListWindow {
     public ListWindow(CommonUser new_user, UsersList new_list){
         this.list = new_list;
         this.user = new_user;
-        final JTextField findField = new JTextField(100);
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser("C:\\");
-                if (fileChooser.showDialog(null,"Open File") == JFileChooser.APPROVE_OPTION) {
-                    File desktopFile = fileChooser.getSelectedFile();
-                    FileObject file = user.add(desktopFile.getPath());
-                    if (file != null) {
-                        addButton.setEnabled(true);
-                        model.add(model.size(), file);
-                        list.refresh(user);
-                        list.save();
-                        model.save();
-                        list.sendingAll(file.getPath());
-                    }
-                    else {
-                        addButton.setEnabled(false);
-                    }
-                }
-
+                addAction();
             }
         });
 
@@ -65,54 +51,38 @@ public class ListWindow {
         openButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (fileList.getSelectedIndex() >= 0) {
-                    System.out.println(fileList.getSelectedValue().toString());
-                    model.openCurrent(fileList.getSelectedIndex());
-                }
+                openAction();
             }
         });
-
 
         JButton deleteButton = new JButton("delete file");
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int index = fileList.getSelectedIndex();
-                if (index >= 0) {
-                    model.removeElementAt(index);
-                    if (index > 1)
-                        fileList.setSelectedIndex(index - 1);
-                }
-            }
-        });
-        final JButton findButton = new JButton("Find");
-        findButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!findField.getText().equals("")) {
-                    model.find(findField.getText());
-                }
-                else{
-                    model.readDB();
-                }
-                fileList.repaint();
+                deleteAction();
             }
         });
 
-        JButton refreshAllButton = new JButton("refresh all");
+        findButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                findAction();
+            }
+        });
+
+        final JButton refreshAllButton = new JButton("refresh all");
         refreshAllButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.refreshAll();
+                refreshAllAction();
             }
         });
 
 
         window = new JFrame("Catalog");
-        model = FileList.read();
-        if (model == null) {
-            model = new FileList();
-        }
+        model = new FileList();
+        model.readDB();
+
         window.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -146,11 +116,11 @@ public class ListWindow {
             public void windowDeactivated(WindowEvent e) {
             }
         });
+
         fileList = new JList(model);
 
         JScrollPane scrollPane = new JScrollPane(fileList);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
 
         window.setSize(500,500);
         window.setLayout(new GridBagLayout());
@@ -158,44 +128,48 @@ public class ListWindow {
 
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.anchor = GridBagConstraints.PAGE_START;
-        setGrid(0,0,0.5);
+        setGrid(0,0);
         window.add(addButton,grid);
 
 
         grid.fill = GridBagConstraints.HORIZONTAL;
-        setGrid(1,0,0.5);
+        setGrid(1,0);
         window.add(openButton,grid);
 
 
         grid.fill = GridBagConstraints.HORIZONTAL;
-        setGrid(2,0,0.5);
+        setGrid(2,0);
         window.add(deleteButton,grid);
 
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.gridwidth = 2;
-        setGrid(0,1,0.5);
+        setGrid(0,1);
         window.add(findField,grid);
 
         grid.fill = GridBagConstraints.HORIZONTAL;
-        setGrid(2,1,0.5);
+        setGrid(2,1);
         window.add(findButton,grid);
 
 
         grid.fill = GridBagConstraints.BOTH;
         grid.gridwidth = 3;
         grid.weighty = 2;
-        setGrid(0,2,0.5);
+        setGrid(0,2);
         window.add(scrollPane,grid);
+
 
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.gridwidth = 3;
         grid.weighty = 0;
-        setGrid(0,3,0.5);
+        setGrid(0,3);
         window.add(refreshAllButton,grid);
+
         fileList.setAutoscrolls(true);
 
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
+    //-----------------------Methods-------------------------------------------
 
     /**
      * start show this window
@@ -208,12 +182,78 @@ public class ListWindow {
      * set grid for gridBag layout
      * @param gridx - GridBagLayout.gridx
      * @param gridy - GridBagLayout.gridy
-     * @param weightx - GridBagLayout.weightx
      */
-    public void setGrid(int gridx, int gridy, double weightx)
+    private void setGrid(int gridx, int gridy)
     {
-        grid.weightx = weightx;
+        grid.weightx = 0.5;
         grid.gridx = gridx;
         grid.gridy = gridy;
+    }
+
+    //-----------------------Actions-------------------------------------------
+
+    /**
+     * Perform when button "Find" was pressed
+     */
+    private void findAction() {
+        if (!findField.getText().equals("")) {
+            model.find(findField.getText());
+        } else {
+            model.readDB();
+        }
+        fileList.repaint();
+        log.info("perform find - " + findField.getText());
+    }
+
+    /**
+     * Perform when button "Open" was pressed
+     */
+    private void openAction() {
+        if (fileList.getSelectedIndex() >= 0) {
+            model.openCurrent(fileList.getSelectedIndex());
+            log.info("perform open - " + fileList.getSelectedValue().toString());
+        }
+    }
+
+    /**
+     * Perform when button "Add" was pressed
+     */
+    private void addAction(){
+        JFileChooser fileChooser = new JFileChooser("C:\\");
+        if (fileChooser.showDialog(null,"Open File") == JFileChooser.APPROVE_OPTION) {
+            File desktopFile = fileChooser.getSelectedFile();
+            FileObject file = user.add(desktopFile.getPath());
+            if (file != null) {
+                addButton.setEnabled(true);
+                model.add(model.size(), file);
+                list.refresh(user);
+                list.save();
+                model.save();
+                list.sendingAll(file.getPath());
+            }
+            else {
+                addButton.setEnabled(false);
+            }
+
+        }
+    }
+
+    /**
+     * Perform when button "Delete" was pressed
+     */
+    private void deleteAction(){
+        int index = fileList.getSelectedIndex();
+        if (index >= 0) {
+            model.removeElementAt(index);
+            if (index > 1)
+                fileList.setSelectedIndex(index - 1);
+        }
+    }
+
+    /**
+     * Perform when button "Refresh all" was pressed
+     */
+    private void refreshAllAction(){
+        model.refreshAll();
     }
 }

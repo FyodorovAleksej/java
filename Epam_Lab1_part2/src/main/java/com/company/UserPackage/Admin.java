@@ -13,8 +13,10 @@ import java.io.IOException;
  * Class, that describes privileges of ADMIN
  */
 public class Admin implements Usable {
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(Admin.class);
 
+    //-----------------------Get/Set-------------------------------------------
     /**
      * method for get value of quota if this day of this ADMIN
      * @return - the value of quota for this ADMIN
@@ -31,7 +33,7 @@ public class Admin implements Usable {
     public void setQouta(long new_qouta) {
     }
 
-    //-------------------------------------------------------------------------
+    //-----------------------Methods-------------------------------------------
 
     @Override
     public FileObject add(String path) {
@@ -76,5 +78,4 @@ public class Admin implements Usable {
     @Override
     public void refresh() {
     }
-
 }

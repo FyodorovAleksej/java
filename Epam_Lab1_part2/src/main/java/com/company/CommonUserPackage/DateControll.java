@@ -11,7 +11,11 @@ import java.util.GregorianCalendar;
  * Class of checking date for refresh quota
  */
 public class DateControll extends GregorianCalendar {
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(DateControll.class);
+
+    //-----------------------Constructors--------------------------------------
+
     /**
      * basic constructor, that get current date of computer
      */
@@ -29,6 +33,8 @@ public class DateControll extends GregorianCalendar {
     public DateControll(int year, int month, int day){
         super(year,month,day);
     }
+
+    //-----------------------Methods-------------------------------------------
 
     /**
      * transform String into object of this class

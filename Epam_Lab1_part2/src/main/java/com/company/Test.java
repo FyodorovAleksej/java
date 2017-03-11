@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import static java.lang.Integer.toUnsignedLong;
 
 /**
+ * TEST CLASS
  * Created by Alexey on 21.02.2017.
  */
 

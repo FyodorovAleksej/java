@@ -11,15 +11,14 @@ import java.sql.*;
  * Created by Alexey on 06.03.2017.
  */
 public class DataBaseProcessor implements AutoCloseable {
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(DataBaseProcessor.class);
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
     private static final String URL = "jdbc:mysql://localhost:3306/mysql?useSSL=false";
     private Connection connection = null;
-    //--------------------------------------------------
 
-    public DataBaseProcessor(){
-    }
+    //-----------------------Get/Set-------------------------------------------
 
     /**
      * get connection with database
@@ -29,6 +28,8 @@ public class DataBaseProcessor implements AutoCloseable {
     public Connection getConnection() throws SQLException {
         return connection;
     }
+
+    //-----------------------Methods-------------------------------------------
 
     /**
      * registrate driver and create connection

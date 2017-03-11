@@ -12,12 +12,13 @@ import java.io.IOException;
  * Class, that describes file information
  */
 public class FileObject extends Component {
+    //-----------------------Objects-------------------------------------------
     private static final Logger log = LogManager.getLogger(FileObject.class);
 
     private String path;
     private long size;
-    boolean isShow = true;
-    //--------------------------------------------------------------
+
+    //-----------------------Constructors-------------------------------------------
 
     /**
      * creating new file object from file with pathname
@@ -28,6 +29,8 @@ public class FileObject extends Component {
         File desktopFile = new File(new_path);
         size = desktopFile.length();
     }
+
+    //-----------------------Get/Set-------------------------------------------
 
     /**
      * method for getting value of path
@@ -45,18 +48,15 @@ public class FileObject extends Component {
         return size;
     }
 
+    //-----------------------Methods-------------------------------------------
+
     /**
      * method for transform this file into string
      * @return - string in format: "Path - this.PATH Size - this.SIZE"
      */
     @Override
     public String toString(){
-        if (this.isShow) {
-            return "Path - " + path + " Size - " + Long.toString(size);
-        }
-        else{
-            return null;
-        }
+       return "Path - " + path + " Size - " + Long.toString(size);
     }
 
     /**
@@ -97,13 +97,5 @@ public class FileObject extends Component {
             }
         }
         return buffer.toString();
-    }
-
-    public void setVisible(boolean visible){
-        this.isShow = visible;
-    }
-
-    public boolean getVisible(){
-        return this.isVisible();
     }
 }
