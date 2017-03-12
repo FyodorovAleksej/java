@@ -42,7 +42,7 @@ public class SenderSSL {
      * @param fromEmail - the mail of admin
      * @param toEmail - the mail address
      */
-    public void send(String subject, String text, String fromEmail, String toEmail){
+    public void send(String subject, String text, String fromEmail, String toEmail) throws RuntimeException{
         Session session = Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);

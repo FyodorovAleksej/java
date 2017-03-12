@@ -10,7 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Alexey on 11.03.2017.
+ * class of offer window, that call, after press button "offer file" in ListWindow
+ * Created by Alexey on 07.03.2017.
  */
 public class OfferWindow {
     //-----------------------Objects-------------------------------------------
@@ -29,8 +30,7 @@ public class OfferWindow {
     //-----------------------Constructors--------------------------------------
 
     /**
-     * constructor of window with login
-     *
+     * constructor of offer window with input title
      * @param title - title of window
      */
     public OfferWindow(String title) {
@@ -58,6 +58,7 @@ public class OfferWindow {
         window.setLayout(new GridBagLayout());
 
         grid.fill = GridBagConstraints.HORIZONTAL;
+        grid.anchor = GridBagConstraints.PAGE_START;
         setGrid(0, 0, 0);
         JLabel mailTextLabel = new JLabel("input email: ");
         window.add(mailTextLabel, grid);
@@ -91,11 +92,13 @@ public class OfferWindow {
         window.add(messageTextLabel, grid);
 
         grid.fill = GridBagConstraints.BOTH;
+        grid.weighty = 2;
         setGrid(0, 5, 0.5);
         window.add(messageField, grid);
 
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.gridwidth = 1;
+        grid.weighty = 0;
         setGrid(0, 6, 0.5);
         window.add(sendButton, grid);
 
@@ -117,7 +120,6 @@ public class OfferWindow {
 
     /**
      * set grid for gridBag layout
-     *
      * @param gridx   - GridBagLayout.gridx
      * @param gridy   - GridBagLayout.gridy
      * @param weightx - GridBagLayout.weightx
@@ -128,11 +130,24 @@ public class OfferWindow {
         grid.gridy = gridy;
     }
 
+    //-----------------------Actions-------------------------------------------
 
+    /**
+     * Perform when button "send" was pressed
+     */
     public void sendAction(){
-        SenderCommon.sendByGuest(mailField.getText(),passwordField.getText(),subjectField.getText(),messageField.getText());
+        try {
+            SenderCommon.sendByGuest(mailField.getText(), passwordField.getText(), subjectField.getText(), messageField.getText());
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+        }
         window.dispose();
     }
+
+    /**
+     * Perform when button "cancel" was pressed
+     */
     public void cancelAction(){
         window.dispose();
     }
