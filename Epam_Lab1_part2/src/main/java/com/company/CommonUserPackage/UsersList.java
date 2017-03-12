@@ -143,7 +143,7 @@ public class UsersList extends LinkedList<CommonUser>{
      */
     public void sendingAll(String message){
         for (int i = 0; i < this.size(); i++) {
-            SenderCommon.send(this.subjectOfSending,message + this.messageTemplate,this.get(i).getLogin());
+            SenderCommon.sendByAdmin(this.subjectOfSending,message + this.messageTemplate,this.get(i).getLogin());
         }
     }
 

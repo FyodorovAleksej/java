@@ -70,7 +70,7 @@ public class ListWindow {
             }
         });
 
-        final JButton refreshAllButton = new JButton("refresh all");
+        JButton refreshAllButton = new JButton("refresh all");
         refreshAllButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,6 +78,13 @@ public class ListWindow {
             }
         });
 
+        JButton offerButton = new JButton("offer file");
+        offerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                offerAction();
+            }
+        });
 
         window = new JFrame("Catalog");
         model = new FileList();
@@ -142,24 +149,29 @@ public class ListWindow {
         window.add(deleteButton,grid);
 
         grid.fill = GridBagConstraints.HORIZONTAL;
-        grid.gridwidth = 2;
+        setGrid(3,0);
+        window.add(offerButton,grid);
+
+        grid.fill = GridBagConstraints.HORIZONTAL;
+        grid.gridwidth = 3;
         setGrid(0,1);
         window.add(findField,grid);
 
         grid.fill = GridBagConstraints.HORIZONTAL;
-        setGrid(2,1);
+        grid.gridwidth = 1;
+        setGrid(3,1);
         window.add(findButton,grid);
 
 
         grid.fill = GridBagConstraints.BOTH;
-        grid.gridwidth = 3;
+        grid.gridwidth = 4;
         grid.weighty = 2;
         setGrid(0,2);
         window.add(scrollPane,grid);
 
 
         grid.fill = GridBagConstraints.HORIZONTAL;
-        grid.gridwidth = 3;
+        grid.gridwidth = 4;
         grid.weighty = 0;
         setGrid(0,3);
         window.add(refreshAllButton,grid);
@@ -255,5 +267,13 @@ public class ListWindow {
      */
     private void refreshAllAction(){
         model.refreshAll();
+    }
+
+    /**
+     * Perform when button "offer" was pressed
+     */
+    private void offerAction(){
+        OfferWindow offerWindow = new OfferWindow("Offer file");
+        offerWindow.show();
     }
 }
