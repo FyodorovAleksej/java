@@ -2,5 +2,4 @@
 java projects
 ## Документация
 
-[Документация] API 
-[Документация]: http://fyodorovaleksej.github.io/java/
+Документация API http://fyodorovaleksej.github.io/java/
